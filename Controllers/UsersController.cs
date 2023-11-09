@@ -65,26 +65,49 @@ public class UsersController : Controller
             
         });
     }
-    // [HttpPost]
-    // public async Task<IActionResult> Edit(string id,AppUser user){
-    //     if(id != user.Id)
-    //         return NotFound();
+    [HttpPost]
+    public async Task<IActionResult> Edit(string id,EditViewModel user){
+
+        if(id != user.Id)
+            return NotFound();
         
-    //     if(ModelState.IsValid){
-    //         var _user = await _userManager.FindByIdAsync(id);
-    //         _user.FullName = user.FullName;
-    //         _user.Email = user.Email;
-    //         _user.UserName = user.UserName;
-    //         var result = await _userManager.UpdateAsync(_user);
-    //         if(result.Succeeded){
-    //             return RedirectToAction("Index");
-    //         }
-    //         else{
-    //             foreach(IdentityError error in result.Errors){
-    //                 ModelState.AddModelError("",error.Description);
-    //             }
-    //         }
-    //     }
-    //     return View(user);
-    // }
+        if(ModelState.IsValid){
+            var _user = await _userManager.FindByIdAsync(id);
+            if(_user != null){
+
+                _user.FullName = user.FullName;
+                _user.Email = user.Email;
+
+                var result = await _userManager.UpdateAsync(_user);
+
+                if(result.Succeeded && !string.IsNullOrEmpty(user.Password)){
+                    await _userManager.RemovePasswordAsync(_user);
+                    await _userManager.AddPasswordAsync(_user,user.Password);
+                }
+
+                if(result.Succeeded){
+                    return RedirectToAction("Index");
+                }
+                else{
+                    foreach(IdentityError error in result.Errors){
+                        ModelState.AddModelError("",error.Description);
+                    }
+                }
+            }
+            
+        }
+        return View(user);
+    }
+
+    public async Task<IActionResult> Delete(string id){
+        var user = await _userManager.FindByIdAsync(id);
+
+        if(user != null){
+            var result = await _userManager.DeleteAsync(user);
+        }
+
+        return RedirectToAction("Index");
+       
+    
+    }
 }
