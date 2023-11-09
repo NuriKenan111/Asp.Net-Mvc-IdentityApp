@@ -1,0 +1,26 @@
+@model CreateViewModel
+
+<h2 style="text-align: center;">Create User</h2>
+<form action="Create" method ="post">
+    <div class="col-5 container" style="justify-content: center;">
+        <hr>
+        <div asp-validation-summary = "All" class="text-danger"></div>
+        <div class="mb-3">
+            <label asp-for="UserName" class="form-label"></label>
+            <input  class="form-control" asp-for="UserName" placeholder="Enter name">
+        </div>
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label"></label>
+            <input  class="form-control" asp-for="Email" placeholder="Enter Email">
+        </div>
+        <div class="mb-3">
+            <label asp-for="Password" class="form-label"></label>
+            <input  class="form-control" asp-for="Password" placeholder="Enter Password">
+        </div>
+        <div class="mb-3">
+            <label asp-for="ConfrimPassword" class="form-label"></label>
+            <input  class="form-control" asp-for="ConfrimPassword" placeholder="Enter Confrim Password">
+        </div>
+        <button type="submit" class="btn btn-primary container-fluid">Save</button>
+    </div>
+</form>
