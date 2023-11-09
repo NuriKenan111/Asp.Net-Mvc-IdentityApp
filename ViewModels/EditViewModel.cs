@@ -2,22 +2,19 @@ using System.ComponentModel.DataAnnotations;
 
 namespace IdentityApp.ViewModels;
 
-public class CreateViewModel
+public class EditViewModel
 {
-    [Required]
-    public string FullName { get; set; } = string.Empty;
+    public string? Id { get; set; }
+    public string? FullName { get; set; }
 
-    [Required]
     [EmailAddress]
-    public string Email { get; set; } = string.Empty;
+    public string? Email { get; set; } 
 
-    [Required]
     [DataType(DataType.Password)]
     [StringLength(16, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 8)]
-    public string Password { get; set; } = string.Empty;
+    public string? Password { get; set; } 
 
-    [Required]
     [DataType(DataType.Password)]
     [Compare(nameof(Password),ErrorMessage = "Password and Confirm Password do not match")]
-    public string ConfrimPassword { get; set; } = string.Empty;
+    public string? ConfrimPassword { get; set; }
 }

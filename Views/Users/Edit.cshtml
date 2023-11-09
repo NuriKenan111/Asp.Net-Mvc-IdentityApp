@@ -1,12 +1,13 @@
-@model CreateViewModel
+@model EditViewModel
 
-<form action="Create" method="post">
+<form action="Edit" method="post">
     <div class="col-5 container">
         <div class="card mb-4">
             <div class="card-body">
                 <h5 class="card-title" style="text-align: center;">User Information</h5>
                 <hr>
                 <div asp-validation-summary="All" class="text-danger"></div>
+                <input type="hidden" name="Id" value="@Model.Id" hidden>
                 <div class="mb-3">
                     <label asp-for="FullName" class="form-label">FullName</label>
                     <input class="form-control" asp-for="FullName" placeholder="Enter name">

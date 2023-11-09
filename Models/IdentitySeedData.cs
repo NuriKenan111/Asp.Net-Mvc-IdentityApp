@@ -12,17 +12,18 @@ public class IdentitySeedData
         var context = app.ApplicationServices
         .CreateScope().ServiceProvider.GetRequiredService<IdentityContext>();
         
-        if(context.Database.GetPendingMigrations().Any()){
+        if(context.Database.GetAppliedMigrations().Any()){
             context.Database.Migrate();
         }
 
         var userManager = app.ApplicationServices
-        .CreateScope().ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+        .CreateScope().ServiceProvider.GetRequiredService<UserManager<AppUser>>();
 
         var user = await userManager.FindByNameAsync(adminUser);
 
         if(user == null){
-            user = new IdentityUser{
+            user = new AppUser{
+                FullName = "Kenan Nuri",
                 UserName = adminUser,
                 Email = "kenan@gmail.com",
                 PhoneNumber = "055648",
