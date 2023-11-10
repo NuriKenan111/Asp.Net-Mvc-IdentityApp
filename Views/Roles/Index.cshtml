@@ -1,3 +1,32 @@
 @model IEnumerable<AppRole>
 
 <a asp-action="Create" class="btn btn-primary">Create User</a>
+
+<hr>
+
+<table class="table-sm table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Role Name</th>
+        <th>Users</th>
+        <th colspan="2">Edit Delete</th>
+    </tr>
+    @if(Model.Count() == 0){
+        <tr><td colspan="4">No Roles</td></tr>
+    }
+    @foreach(var item in Model){
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>Users List</td>
+            <td>
+                <form method="post">
+                    <input type="hidden" name="Id" value="@item.Id">
+                    <a href="" class ="btn btn-primary">Edit</a>
+                    <button type="submit" class ="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+
+</table>
