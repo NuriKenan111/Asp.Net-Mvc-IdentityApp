@@ -17,4 +17,5 @@ public class EditViewModel
     [DataType(DataType.Password)]
     [Compare(nameof(Password),ErrorMessage = "Password and Confirm Password do not match")]
     public string? ConfrimPassword { get; set; }
+    public IList<string>? SelectedRole { get; set; }
 }

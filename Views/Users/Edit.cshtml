@@ -24,6 +24,26 @@
                     <label asp-for="ConfrimPassword" class="form-label">Confirm Password</label>
                     <input type="password" class="form-control" asp-for="ConfrimPassword" placeholder="Confirm Password">
                 </div>
+                <div class="card">
+                    <div class="card header">
+                        Roller
+                    </div>
+                    <div class="card-body">
+                        @foreach (var item in ViewBag.Roles){
+                            <div class="form-check">
+                                <input type="checkbox"
+                                    class="form-check-input"
+                                    name="SelectedRole"
+                                    value="@item"
+                                    id="@item"
+                                    @(Model.SelectedRole.Any(r => r == item) ? "checked" : "")
+                                    >
+                                <label for="@item" class="form-check-label">@item</label>
+                            </div> 
+                        }
+                    </div>
+                </div>
+
                 <button type="submit" class="btn btn-primary container-fluid">Save</button>
             </div>
         </div>

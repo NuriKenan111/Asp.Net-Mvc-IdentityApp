@@ -2,6 +2,7 @@ using IdentityApp.Models;
 using IdentityApp.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace IdentityApp.Controllers;
@@ -9,9 +10,11 @@ namespace IdentityApp.Controllers;
 public class UsersController : Controller
 {
     private UserManager<AppUser> _userManager;
-    public UsersController(UserManager<AppUser> usermanager)
+    private RoleManager<AppRole> _roleManager;
+    public UsersController(UserManager<AppUser> usermanager,RoleManager<AppRole> roleManager)
     {
         _userManager = usermanager;
+        _roleManager = roleManager;
     }
     public IActionResult Index()
     {
@@ -56,13 +59,13 @@ public class UsersController : Controller
         {
             return NotFound();
         }
-
+        ViewBag.Roles = await _roleManager.Roles.Select(r => r.Name).ToListAsync();
         return View(new EditViewModel
         {
             Id = id,
             FullName = user.FullName,
-            Email = user.Email
-            
+            Email = user.Email,
+            SelectedRole = await _userManager.GetRolesAsync(user)
         });
     }
     [HttpPost]
@@ -86,6 +89,11 @@ public class UsersController : Controller
                 }
 
                 if(result.Succeeded){
+                    await _userManager.RemoveFromRolesAsync(_user,await _userManager.GetRolesAsync(_user));
+                    if(user.SelectedRole != null){
+                        await _userManager.AddToRolesAsync(_user,user.SelectedRole);
+                    }
+                    
                     return RedirectToAction("Index");
                 }
                 else{
