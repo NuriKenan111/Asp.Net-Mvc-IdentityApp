@@ -1,0 +1,18 @@
+@model AppRole
+
+<form action="Create" method="post">
+    <div class="col-5 container">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title" style="text-align: center;">Create Role</h5>
+                <hr>
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label">Name</label>
+                    <input class="form-control" asp-for="Name" placeholder="Enter name">
+                </div>
+                <button type="submit" class="btn btn-primary container-fluid">Save</button>
+            </div>
+        </div>
+    </div>
+</form>
