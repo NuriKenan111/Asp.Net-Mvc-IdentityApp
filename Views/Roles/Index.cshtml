@@ -18,7 +18,7 @@
         <tr>
             <td>@item.Id</td>
             <td>@item.Name</td>
-            <td>Users List</td>
+            <td asp-role-users="@item.Id"></td>
             <td>
                 <form method="post">
                     <input type="hidden" name="Id" value="@item.Id">

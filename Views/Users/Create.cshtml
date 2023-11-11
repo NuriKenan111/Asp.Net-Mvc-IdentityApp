@@ -8,6 +8,10 @@
                 <hr>
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="mb-3">
+                    <label asp-for="UserName" class="form-label">Username</label>
+                    <input class="form-control" asp-for="UserName" placeholder="Enter name">
+                </div>
+                <div class="mb-3">
                     <label asp-for="FullName" class="form-label">FullName</label>
                     <input class="form-control" asp-for="FullName" placeholder="Enter name">
                 </div>
