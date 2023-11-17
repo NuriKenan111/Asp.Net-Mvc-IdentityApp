@@ -1,6 +1,3 @@
-# Asp.Net-Mvc-IdentityApp
-
-
 # ASP.NET Identity Project
 
 This project is an example of an ASP.NET application with Identity for authentication and authorization. It utilizes SQLite as the database, and email verification is implemented.
